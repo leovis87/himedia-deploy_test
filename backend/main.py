@@ -15,16 +15,20 @@ from dotenv import load_dotenv
 ENV_PATH = Path(__file__).parent / '.env'
 load_dotenv(ENV_PATH)
 
-# 환경변수 가져오기 
+# 환경변수 가져오기
+# react 서버 주소를 origin에 등록 해야함
+#   -> 같은 도메인이 아니니까 react 서버에서 들어오는 요청을 허용할 수 있게 cors 설정을 해야함
 REACT_HOST = os.getenv('REACT_HOST', "react-server")
+
 if REACT_HOST.startswith('http'):
+    # http://locahost:3000 or 5173
     ORIGIN = REACT_HOST
 else:
+    # https://react-server-xxxx.onrender.com
     ORIGIN = f"https://{REACT_HOST}.onrender.com"
 
 app = FastAPI()
 
-print("ORIGIN", ORIGIN)
 # CORS 설정
 app.add_middleware(
     CORSMiddleware,

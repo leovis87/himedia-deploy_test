@@ -1,0 +1,19 @@
+services: # 실행할 컨테이너들을 정의하는 섹션
+  # Python 개발환경 컨테이너 정의
+  python-app:   # 파이썬 컨테이너 이름 | 서비스 이름 (다른 컨테이너에서 이 이름으로 접근 가능)
+                # docker 컨테이너 간의 소통을 위한 이름
+    image: python:3.14.0-slim     # Docker Hub에서 가져올 이미지
+    container_name: python14      # 컨테이너 이름 docker ps
+    working_dir: /backend         # 컨테이너 시작 시, 기본 작업 폴더
+    volumes:                      # 호스트와 컨테이너 간 파일 공류 설정
+      - .:/workspace              # 좌: 현재 폴더(.)를 | 우: 컨테이너안의 폴더 경로 /backend에 연결
+    command: tail -f /dev/null    # CMD: 컨테이너가 실행되고 마지막에 수행할 명령어 (컨테이너가 종료되지 않고 계속 실행되도록 하는 명령어)
+
+    
+  ubuntu-env:   # 우분투 컨테이너 이름
+    image: ubuntu:24.04           # Docker Hub에서 가져올 이미지
+    container_name: ubuntu24      # 컨테이너 이름 docker ps
+    working_dir: /workspace
+    volumes:
+      - .:/workspace
+    command: tail -f /dev/null

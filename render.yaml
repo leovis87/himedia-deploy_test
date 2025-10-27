@@ -1,5 +1,7 @@
+# projects, environments -> 여러 서비스를 하나로 묶어주는 역할
+
 projects: 
-  - name: My-app 
+  - name: My-app                
     environments: 
       - name: production
         databases:
@@ -16,6 +18,8 @@ projects:
             rootDir: backend
             dockerfilePath: ./Dockerfile
             dockerContext: .
+
+            # 환경변수 DB URL, React server의 HOST 이름 -> CORS
             envVars: 
               - key: DB_URL
                 fromDatabase: 
@@ -28,7 +32,7 @@ projects:
                   property: host
             autoDeploy: true
 
-          - type: web 
+          - type: web
             name: react-server
             runtime: docker
             region: singapore
